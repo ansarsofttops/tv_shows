@@ -4,12 +4,8 @@
   
   <div id='search_panel'>
     <%= form_tag tv_shows_path, method: 'GET' do %>
-      <label>TV Show</label>
-      <%= text_field_tag :tv_show, params[:tv_show] %>
-      <br>
-      <label>Channel</label>
-      <%= text_field_tag :channel, params[:tv_show] %>
-      <br>
+      <label>TV Show / Channel</label>
+      <%= text_field_tag :tv_show_or_channel, params[:tv_show_or_channel] %>
       <%= submit_tag "search" %>
     <% end %>
 

@@ -1,0 +1,1 @@
+$('#favorite_<%= @tv_show.id%>').html('<%= escape_javascript button_to(@tv_show.favorite(current_user), mark_favorite_tv_show_path(@tv_show), remote: true) %>');

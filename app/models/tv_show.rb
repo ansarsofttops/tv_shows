@@ -4,23 +4,14 @@ class TvShow < ApplicationRecord
 
   def self.search(params)
     self.joins(:channel).
-      search_by_tv_show(params[:tv_show]).
-      search_by_channel(params[:channel])
+      search_by_tv_show_or_channel(params[:tv_show_or_channel])
   end
 
-  def self.search_by_tv_show(show_name)
-    if show_name.blank?
+  def self.search_by_tv_show_or_channel(tv_show_or_channel)
+    if tv_show_or_channel.blank?
       self.where(nil)
     else
-      self.where("tv_shows.show_name LIKE ?", "%#{show_name}%")
-    end
-  end
-
-  def self.search_by_channel(channel_name)
-    if channel_name.blank?
-      self.where(nil)
-    else
-      self.where("channels.name LIKE ?", "%#{channel_name}%")
+      self.where("tv_shows.show_name LIKE ? OR channels.name LIKE ?", "%#{tv_show_or_channel}%", "%#{tv_show_or_channel}%")
     end
   end
 
