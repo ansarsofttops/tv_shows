@@ -1,0 +1,929 @@
+  [1m[35m (163.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (122.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5142017846023840005)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200719131347)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (88.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (76.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (63.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200719131347"]]
+  [1m[35m (20.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-07-19 13:15:47.124950"], ["updated_at", "2020-07-19 13:15:47.124950"]]
+  [1m[35m (4.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5142017846023840005)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5142017846023840005)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateChannels (20200719131701)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (146.7ms)[0m  [1m[35mCREATE TABLE "channels" ("id" bigserial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200719131701"]]
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTvShows (20200719131759)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (150.4ms)[0m  [1m[35mCREATE TABLE "tv_shows" ("id" bigserial primary key, "show_name" character varying, "start_time" time, "end_time" time, "channel_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (301.4ms)[0m  [1m[35mCREATE  INDEX  "index_tv_shows_on_channel_id" ON "tv_shows"  ("channel_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200719131759"]]
+  [1m[35m (408.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5142017846023840005)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5142017846023840005)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateFavoriteShows (20200719132257)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (88.7ms)[0m  [1m[35mCREATE TABLE "favorite_shows" ("id" bigserial primary key, "user_id" bigint, "tv_show_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (42.2ms)[0m  [1m[35mCREATE  INDEX  "index_favorite_shows_on_user_id" ON "favorite_shows"  ("user_id")[0m
+  [1m[35m (42.7ms)[0m  [1m[35mCREATE  INDEX  "index_favorite_shows_on_tv_show_id" ON "favorite_shows"  ("tv_show_id")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200719132257"]]
+  [1m[35m (20.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5142017846023840005)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ansar@softopstechnologies.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "ansar@softopstechnologies.com"], ["encrypted_password", "$2a$12$vlAzD0T/UrWOxECOX7qrUubFnkk5kZmDjsnpsxt7Cpth0tCyuDGO2"], ["created_at", "2020-07-19 13:25:40.560375"], ["updated_at", "2020-07-19 13:25:40.560375"]]
+  [1m[35m (19.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2020-07-19 18:58:23 +0530
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/ansar/.rvm/gems/ruby-2.4.2/gems/railties-5.1.7/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/ansar/.rvm/gems/ruby-2.4.2/gems/railties-5.1.7/lib/rails/templates/rails/welcome/index.html.erb (4.3ms)
+Completed 200 OK in 53ms (Views: 27.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2020-07-19 19:00:25 +0530
+  
+ArgumentError (Missing :controller key on routes definition, please check your routes.):
+  
+config/routes.rb:3:in `block in <top (required)>'
+config/routes.rb:1:in `<top (required)>'
+Started GET "/" for ::1 at 2020-07-19 19:01:45 +0530
+  
+ActionController::RoutingError (undefined method `before_filter' for ApplicationController:Class
+Did you mean?  before_action):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<top (required)>'
+app/controllers/tv_shows_controller.rb:1:in `<top (required)>'
+Started GET "/" for ::1 at 2020-07-19 19:01:58 +0530
+  
+SyntaxError (/home/ansar/workspace/projects/tests/tv_shows/app/controllers/application_controller.rb:3: syntax error, unexpected ':', expecting keyword_end
+  before_filter: authenticate_user!
+                ^):
+  
+app/controllers/application_controller.rb:3: syntax error, unexpected ':', expecting keyword_end
+app/controllers/tv_shows_controller.rb:1:in `<top (required)>'
+Started GET "/" for ::1 at 2020-07-19 19:01:59 +0530
+  
+SyntaxError (/home/ansar/workspace/projects/tests/tv_shows/app/controllers/application_controller.rb:3: syntax error, unexpected ':', expecting keyword_end
+  before_filter: authenticate_user!
+                ^):
+  
+app/controllers/application_controller.rb:3: syntax error, unexpected ':', expecting keyword_end
+app/controllers/tv_shows_controller.rb:1:in `<top (required)>'
+Started GET "/" for ::1 at 2020-07-19 19:03:05 +0530
+  
+AbstractController::ActionNotFound (The action 'index' could not be found for TvShowsController):
+  
+actionpack (5.1.7) lib/abstract_controller/base.rb:119:in `process'
+actionview (5.1.7) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.7) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.7) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:844:in `call'
+warden (1.2.8) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.8) lib/warden/manager.rb:34:in `catch'
+warden (1.2.8) lib/warden/manager.rb:34:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.7) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.7) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/" for ::1 at 2020-07-19 19:03:20 +0530
+Processing by TvShowsController#index as HTML
+Completed 401 Unauthorized in 43ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2020-07-19 19:03:20 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.5ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (37.4ms)
+Started GET "/" for ::1 at 2020-07-19 19:03:21 +0530
+Processing by TvShowsController#index as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2020-07-19 19:03:22 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (3.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (14.4ms)
+Completed 200 OK in 905ms (Views: 902.6ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 2740ms (Views: 2707.6ms | ActiveRecord: 8.9ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2020-07-19 19:03:43 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lEy4MlnAyKL1simEZu0/D+MaKvuHhm7rJlqh320xDMZONCNagrqUmqBGhtUtfP0nX/la0axQV8Non5A/+V50GA==", "user"=>{"email"=>"demo@demo.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "demo@demo.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 38ms (ActiveRecord: 1.1ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lEy4MlnAyKL1simEZu0/D+MaKvuHhm7rJlqh320xDMZONCNagrqUmqBGhtUtfP0nX/la0axQV8Non5A/+V50GA==", "user"=>{"email"=>"demo@demo.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (1.4ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (9.1ms)
+Completed 200 OK in 583ms (Views: 32.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2020-07-19 19:04:02 +0530
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bNCDlVgPfQWfC/ZGV9togXxCcqpyrlopfsaVpJOAYTG2qBj9g3UhPcr/WRccSqqpwKECgFl4YwEwA6REB+8Z7w==", "user"=>{"email"=>"ansar@softopstechnologies.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "ansar@softopstechnologies.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 502ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/" for ::1 at 2020-07-19 19:04:02 +0530
+Processing by TvShowsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering tv_shows/index.html.erb within layouts/application
+  Rendered tv_shows/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 37ms (Views: 31.7ms | ActiveRecord: 0.7ms)
+
+
+  [1m[36mChannel Load (0.6ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mChannel Load (0.5ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "channel A"], ["description", "A"], ["created_at", "2020-07-19 13:42:43.041628"], ["updated_at", "2020-07-19 13:42:43.041628"]]
+  [1m[35m (106.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel B"], ["description", "A"], ["created_at", "2020-07-19 13:42:43.151569"], ["updated_at", "2020-07-19 13:42:43.151569"]]
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel A"], ["description", "A"], ["created_at", "2020-07-19 13:42:43.173535"], ["updated_at", "2020-07-19 13:42:43.173535"]]
+  [1m[35m (8.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mChannel Load (0.9ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "channel A"], ["description", "A"], ["created_at", "2020-07-19 13:48:20.263987"], ["updated_at", "2020-07-19 13:48:20.263987"]]
+  [1m[35m (43.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "channel A"], ["description", "A"], ["created_at", "2020-07-19 13:48:57.311732"], ["updated_at", "2020-07-19 13:48:57.311732"]]
+  [1m[35m (51.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 5], ["created_at", "2020-07-19 13:48:57.418329"], ["updated_at", "2020-07-19 13:48:57.418329"]]
+  [1m[35m (90.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel B"], ["description", "A"], ["created_at", "2020-07-19 13:48:57.512711"], ["updated_at", "2020-07-19 13:48:57.512711"]]
+  [1m[35m (17.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 6], ["created_at", "2020-07-19 13:48:57.537295"], ["updated_at", "2020-07-19 13:48:57.537295"]]
+  [1m[35m (3.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel A"], ["description", "A"], ["created_at", "2020-07-19 13:48:57.546043"], ["updated_at", "2020-07-19 13:48:57.546043"]]
+  [1m[35m (7.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 7], ["created_at", "2020-07-19 13:48:57.558750"], ["updated_at", "2020-07-19 13:48:57.558750"]]
+  [1m[35m (4.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mChannel Load (0.9ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mTvShow Load (1.1ms)[0m  [1m[34mSELECT  "tv_shows".* FROM "tv_shows" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "channel A"], ["description", "A"], ["created_at", "2020-07-19 13:53:56.153434"], ["updated_at", "2020-07-19 13:53:56.153434"]]
+  [1m[35m (37.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.229146"], ["updated_at", "2020-07-19 13:53:56.229146"]]
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "01:01:00"], ["end_time", "01:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.239254"], ["updated_at", "2020-07-19 13:53:56.239254"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "02:01:00"], ["end_time", "02:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.250071"], ["updated_at", "2020-07-19 13:53:56.250071"]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "03:01:00"], ["end_time", "03:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.261503"], ["updated_at", "2020-07-19 13:53:56.261503"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "04:01:00"], ["end_time", "04:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.272661"], ["updated_at", "2020-07-19 13:53:56.272661"]]
+  [1m[35m (7.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "05:01:00"], ["end_time", "05:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.283766"], ["updated_at", "2020-07-19 13:53:56.283766"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "06:01:00"], ["end_time", "06:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.294879"], ["updated_at", "2020-07-19 13:53:56.294879"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "07:01:00"], ["end_time", "07:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.306026"], ["updated_at", "2020-07-19 13:53:56.306026"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "08:01:00"], ["end_time", "08:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.317109"], ["updated_at", "2020-07-19 13:53:56.317109"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "09:01:00"], ["end_time", "09:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.327864"], ["updated_at", "2020-07-19 13:53:56.327864"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "10:01:00"], ["end_time", "10:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.339346"], ["updated_at", "2020-07-19 13:53:56.339346"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "11:01:00"], ["end_time", "11:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.350347"], ["updated_at", "2020-07-19 13:53:56.350347"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "12:01:00"], ["end_time", "12:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.361208"], ["updated_at", "2020-07-19 13:53:56.361208"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "13:01:00"], ["end_time", "13:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.372642"], ["updated_at", "2020-07-19 13:53:56.372642"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "14:01:00"], ["end_time", "14:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.383772"], ["updated_at", "2020-07-19 13:53:56.383772"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "15:01:00"], ["end_time", "15:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.394864"], ["updated_at", "2020-07-19 13:53:56.394864"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "16:01:00"], ["end_time", "16:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.406005"], ["updated_at", "2020-07-19 13:53:56.406005"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "17:01:00"], ["end_time", "17:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.416935"], ["updated_at", "2020-07-19 13:53:56.416935"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "18:01:00"], ["end_time", "18:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.427864"], ["updated_at", "2020-07-19 13:53:56.427864"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "19:01:00"], ["end_time", "19:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.439377"], ["updated_at", "2020-07-19 13:53:56.439377"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "20:01:00"], ["end_time", "20:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.450438"], ["updated_at", "2020-07-19 13:53:56.450438"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "21:01:00"], ["end_time", "21:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.461214"], ["updated_at", "2020-07-19 13:53:56.461214"]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "22:01:00"], ["end_time", "22:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.472627"], ["updated_at", "2020-07-19 13:53:56.472627"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "channel A_1"], ["start_time", "23:01:00"], ["end_time", "23:59:00"], ["channel_id", 8], ["created_at", "2020-07-19 13:53:56.483824"], ["updated_at", "2020-07-19 13:53:56.483824"]]
+  [1m[35m (7.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel B"], ["description", "A"], ["created_at", "2020-07-19 13:53:56.493960"], ["updated_at", "2020-07-19 13:53:56.493960"]]
+  [1m[35m (8.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.506114"], ["updated_at", "2020-07-19 13:53:56.506114"]]
+  [1m[35m (7.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "01:01:00"], ["end_time", "01:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.517159"], ["updated_at", "2020-07-19 13:53:56.517159"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "02:01:00"], ["end_time", "02:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.528213"], ["updated_at", "2020-07-19 13:53:56.528213"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "03:01:00"], ["end_time", "03:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.539901"], ["updated_at", "2020-07-19 13:53:56.539901"]]
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "04:01:00"], ["end_time", "04:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.550467"], ["updated_at", "2020-07-19 13:53:56.550467"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "05:01:00"], ["end_time", "05:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.561512"], ["updated_at", "2020-07-19 13:53:56.561512"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "06:01:00"], ["end_time", "06:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.572688"], ["updated_at", "2020-07-19 13:53:56.572688"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "07:01:00"], ["end_time", "07:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.583825"], ["updated_at", "2020-07-19 13:53:56.583825"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "08:01:00"], ["end_time", "08:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.594957"], ["updated_at", "2020-07-19 13:53:56.594957"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "09:01:00"], ["end_time", "09:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.606097"], ["updated_at", "2020-07-19 13:53:56.606097"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "10:01:00"], ["end_time", "10:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.617285"], ["updated_at", "2020-07-19 13:53:56.617285"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "11:01:00"], ["end_time", "11:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.628312"], ["updated_at", "2020-07-19 13:53:56.628312"]]
+  [1m[35m (7.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "12:01:00"], ["end_time", "12:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.639013"], ["updated_at", "2020-07-19 13:53:56.639013"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "13:01:00"], ["end_time", "13:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.650492"], ["updated_at", "2020-07-19 13:53:56.650492"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "14:01:00"], ["end_time", "14:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.661595"], ["updated_at", "2020-07-19 13:53:56.661595"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "15:01:00"], ["end_time", "15:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.672725"], ["updated_at", "2020-07-19 13:53:56.672725"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "16:01:00"], ["end_time", "16:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.683870"], ["updated_at", "2020-07-19 13:53:56.683870"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "17:01:00"], ["end_time", "17:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.695055"], ["updated_at", "2020-07-19 13:53:56.695055"]]
+  [1m[35m (7.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "18:01:00"], ["end_time", "18:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.706214"], ["updated_at", "2020-07-19 13:53:56.706214"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "19:01:00"], ["end_time", "19:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.717789"], ["updated_at", "2020-07-19 13:53:56.717789"]]
+  [1m[35m (6.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "20:01:00"], ["end_time", "20:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.728267"], ["updated_at", "2020-07-19 13:53:56.728267"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "21:01:00"], ["end_time", "21:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.739260"], ["updated_at", "2020-07-19 13:53:56.739260"]]
+  [1m[35m (7.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "22:01:00"], ["end_time", "22:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.750591"], ["updated_at", "2020-07-19 13:53:56.750591"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel B_1"], ["start_time", "23:01:00"], ["end_time", "23:59:00"], ["channel_id", 9], ["created_at", "2020-07-19 13:53:56.761813"], ["updated_at", "2020-07-19 13:53:56.761813"]]
+  [1m[35m (7.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "channels" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Channel A"], ["description", "A"], ["created_at", "2020-07-19 13:53:56.771903"], ["updated_at", "2020-07-19 13:53:56.771903"]]
+  [1m[35m (8.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "00:01:00"], ["end_time", "00:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.784232"], ["updated_at", "2020-07-19 13:53:56.784232"]]
+  [1m[35m (7.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "01:01:00"], ["end_time", "01:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.794971"], ["updated_at", "2020-07-19 13:53:56.794971"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "02:01:00"], ["end_time", "02:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.806091"], ["updated_at", "2020-07-19 13:53:56.806091"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "03:01:00"], ["end_time", "03:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.816885"], ["updated_at", "2020-07-19 13:53:56.816885"]]
+  [1m[35m (7.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "04:01:00"], ["end_time", "04:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.828322"], ["updated_at", "2020-07-19 13:53:56.828322"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "05:01:00"], ["end_time", "05:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.839433"], ["updated_at", "2020-07-19 13:53:56.839433"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "06:01:00"], ["end_time", "06:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.850609"], ["updated_at", "2020-07-19 13:53:56.850609"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "07:01:00"], ["end_time", "07:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.861296"], ["updated_at", "2020-07-19 13:53:56.861296"]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "08:01:00"], ["end_time", "08:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.872723"], ["updated_at", "2020-07-19 13:53:56.872723"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "09:01:00"], ["end_time", "09:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.883830"], ["updated_at", "2020-07-19 13:53:56.883830"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "10:01:00"], ["end_time", "10:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.894929"], ["updated_at", "2020-07-19 13:53:56.894929"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "11:01:00"], ["end_time", "11:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.906631"], ["updated_at", "2020-07-19 13:53:56.906631"]]
+  [1m[35m (6.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "12:01:00"], ["end_time", "12:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.916720"], ["updated_at", "2020-07-19 13:53:56.916720"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "13:01:00"], ["end_time", "13:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.928310"], ["updated_at", "2020-07-19 13:53:56.928310"]]
+  [1m[35m (7.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "14:01:00"], ["end_time", "14:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.939467"], ["updated_at", "2020-07-19 13:53:56.939467"]]
+  [1m[35m (7.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "15:01:00"], ["end_time", "15:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.950606"], ["updated_at", "2020-07-19 13:53:56.950606"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "16:01:00"], ["end_time", "16:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.961395"], ["updated_at", "2020-07-19 13:53:56.961395"]]
+  [1m[35m (7.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "17:01:00"], ["end_time", "17:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.972521"], ["updated_at", "2020-07-19 13:53:56.972521"]]
+  [1m[35m (7.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "18:01:00"], ["end_time", "18:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.983571"], ["updated_at", "2020-07-19 13:53:56.983571"]]
+  [1m[35m (8.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "19:01:00"], ["end_time", "19:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:56.994993"], ["updated_at", "2020-07-19 13:53:56.994993"]]
+  [1m[35m (7.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "20:01:00"], ["end_time", "20:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:57.005762"], ["updated_at", "2020-07-19 13:53:57.005762"]]
+  [1m[35m (8.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "21:01:00"], ["end_time", "21:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:57.018167"], ["updated_at", "2020-07-19 13:53:57.018167"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "22:01:00"], ["end_time", "22:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:57.028973"], ["updated_at", "2020-07-19 13:53:57.028973"]]
+  [1m[35m (6.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tv_shows" ("show_name", "start_time", "end_time", "channel_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["show_name", "Channel A_1"], ["start_time", "23:01:00"], ["end_time", "23:59:00"], ["channel_id", 10], ["created_at", "2020-07-19 13:53:57.040147"], ["updated_at", "2020-07-19 13:53:57.040147"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTvShow Load (0.9ms)[0m  [1m[34mSELECT  "tv_shows".* FROM "tv_shows" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tv_shows"[0m
+Started GET "/" for ::1 at 2020-07-19 19:33:15 +0530
+Processing by TvShowsController#index as HTML
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering tv_shows/index.html.erb within layouts/application
+  [1m[36mTvShow Load (0.9ms)[0m  [1m[34mSELECT "tv_shows".* FROM "tv_shows"[0m
+  [1m[36mChannel Load (0.4ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (17.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 1], ["user_id", 1]]
+  [1m[36mChannel Load (0.4ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 2], ["user_id", 1]]
+  [1m[36mChannel Load (0.4ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 3], ["user_id", 1]]
+  [1m[36mChannel Load (0.4ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 4], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.9ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 5], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 6], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 7], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 8], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 9], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.3ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 10], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 11], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 12], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 13], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 14], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 15], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 16], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 17], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 18], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 19], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 20], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 21], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 22], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 23], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 24], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 25], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 26], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 27], ["user_id", 1]]
+  [1m[36mChannel Load (0.3ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 28], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 29], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 30], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 31], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 32], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 33], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 34], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 35], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 36], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 37], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 38], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 39], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 40], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.2ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.3ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 41], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 42], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 43], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 44], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 45], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 46], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 47], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 48], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 49], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 50], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 51], ["user_id", 1]]
+  [1m[36mChannel Load (0.4ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 52], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 53], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 54], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 55], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 56], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 57], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 58], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 59], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 60], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 61], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 62], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 63], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 64], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 65], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 66], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 67], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 68], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 69], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 70], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 71], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 72], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 73], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 74], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 75], ["user_id", 1]]
+  Rendered tv_shows/index.html.erb within layouts/application (463.3ms)
+Completed 200 OK in 712ms (Views: 566.4ms | ActiveRecord: 110.8ms)
+
+
+Started GET "/" for ::1 at 2020-07-19 19:35:15 +0530
+Processing by TvShowsController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering tv_shows/index.html.erb within layouts/application
+  [1m[36mTvShow Load (0.8ms)[0m  [1m[34mSELECT "tv_shows".* FROM "tv_shows"[0m
+  [1m[36mChannel Load (0.5ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  Rendered tv_shows/index.html.erb within layouts/application (33.2ms)
+Completed 500 Internal Server Error in 41ms (ActiveRecord: 2.2ms)
+
+
+  
+ActionView::Template::Error (undefined method `favoritefor' for #<TvShow:0x00007fed043a7660>
+Did you mean?  favorite):
+    27:               <td><%= t.show_name %></td>
+    28:               <td><%= t.start_time %></td>
+    29:               <td><%= t.end_time %></td>
+    30:               <td><%= t.favoritefor(current_user) %></td>
+    31:             </tr>
+    32:           <% end %>
+    33:         <% else %>
+  
+app/views/tv_shows/index.html.erb:30:in `block in _app_views_tv_shows_index_html_erb___833395106991261730_70327977515280'
+app/views/tv_shows/index.html.erb:24:in `_app_views_tv_shows_index_html_erb___833395106991261730_70327977515280'
+Started GET "/" for ::1 at 2020-07-19 19:35:26 +0530
+Processing by TvShowsController#index as HTML
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering tv_shows/index.html.erb within layouts/application
+  [1m[36mTvShow Load (0.9ms)[0m  [1m[34mSELECT "tv_shows".* FROM "tv_shows"[0m
+  [1m[36mChannel Load (1.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 1], ["user_id", 1]]
+  [1m[36mChannel Load (0.9ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 2], ["user_id", 1]]
+  [1m[36mChannel Load (0.2ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 3], ["user_id", 1]]
+  [1m[36mChannel Load (0.3ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 4], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 5], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 6], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 7], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 8], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 9], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 10], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 11], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 12], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 13], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 14], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 15], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 16], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 17], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 18], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 19], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 20], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.3ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 21], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 22], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 23], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.9ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 24], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 25], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 26], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 27], ["user_id", 1]]
+  [1m[36mChannel Load (0.6ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 28], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 29], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 30], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.2ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 31], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 32], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 33], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 34], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 35], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 36], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 37], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 38], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 39], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 40], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 41], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 42], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 43], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 44], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 45], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 46], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 47], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 48], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 49], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 50], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 51], ["user_id", 1]]
+  [1m[36mChannel Load (0.2ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 52], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 53], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 54], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 55], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 56], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 57], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 58], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 59], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.9ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 60], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 61], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 62], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.9ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 63], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 64], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 65], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.9ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 66], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 67], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (2.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 68], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 69], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 70], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 71], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 72], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.1ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 73], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 74], ["user_id", 1]]
+  [1m[36mCACHE Channel Load (0.0ms)[0m  [1m[34mSELECT  "channels".* FROM "channels" WHERE "channels"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mFavoriteShow Load (1.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 75], ["user_id", 1]]
+  Rendered tv_shows/index.html.erb within layouts/application (418.9ms)
+Completed 200 OK in 449ms (Views: 372.5ms | ActiveRecord: 72.6ms)
+
+
+Started POST "/" for ::1 at 2020-07-19 19:37:02 +0530
+  
+ActionController::RoutingError (No route matches [POST] "/"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.7.0) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.7.0) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.7.0) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/" for ::1 at 2020-07-19 19:43:25 +0530
+Processing by TvShowsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering tv_shows/index.html.erb within layouts/application
+  [1m[36mTvShow Load (2.1ms)[0m  [1m[34mSELECT "tv_shows".* FROM "tv_shows"[0m
+  [1m[36mChannel Load (1.0ms)[0m  [1m[34mSELECT "channels".* FROM "channels" WHERE "channels"."id" IN (5, 6, 7, 8, 9, 10)[0m
+  [1m[36mFavoriteShow Load (1.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 1], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 2], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 3], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 4], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 5], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (2.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 6], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 7], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 8], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 9], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 10], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 11], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 12], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 13], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 14], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 15], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 16], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 17], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 18], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 19], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 20], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 21], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 22], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 23], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.2ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 24], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 25], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 26], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 27], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 28], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 29], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 30], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 31], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.1ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 32], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 33], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 34], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (2.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 35], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 36], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 37], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 38], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 39], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 40], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 41], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 42], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 43], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 44], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 45], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 46], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 47], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 48], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 49], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 50], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 51], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 52], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 53], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.0ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 54], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 55], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 56], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 57], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 58], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 59], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 60], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 61], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.8ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 62], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 63], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 64], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 65], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 66], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (1.3ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 67], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 68], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 69], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 70], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.5ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 71], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 72], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.7ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 73], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.6ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 74], ["user_id", 1]]
+  [1m[36mFavoriteShow Load (0.4ms)[0m  [1m[34mSELECT "favorite_shows".* FROM "favorite_shows" WHERE "favorite_shows"."tv_show_id" = $1 AND "favorite_shows"."user_id" = $2[0m  [["tv_show_id", 75], ["user_id", 1]]
+  Rendered tv_shows/index.html.erb within layouts/application (334.9ms)
+Completed 200 OK in 431ms (Views: 313.8ms | ActiveRecord: 85.4ms)
+
+

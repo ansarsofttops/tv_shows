@@ -1,0 +1,40 @@
+
+
+<div>
+  
+  <div id='search_panel'>
+    <%= form_with do %>
+      <%= text_field_tag :tv_show, params[:tv_show] %>
+      <%= text_field_tag :channel, params[:tv_show] %>
+    <% end %>
+
+  </div>
+  <div id='results'>
+    <table>
+      <thead>
+        <tr>
+          <th>Channel Name</th>
+          <th> TV Show</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Favorite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @tv_shows.present? %>
+          <% @tv_shows.each do |t| %>
+            <tr>
+              <td><%= t.channel.name %></td>
+              <td><%= t.show_name %></td>
+              <td><%= t.start_time %></td>
+              <td><%= t.end_time %></td>
+              <td><%= t.favorite(current_user) %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr><td colspan="5">No show found</td></tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
