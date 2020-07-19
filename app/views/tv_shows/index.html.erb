@@ -3,11 +3,17 @@
 <div>
   
   <div id='search_panel'>
-    <%= form_with do %>
+    <%= form_tag tv_shows_path, method: 'GET' do %>
+      <label>TV Show</label>
       <%= text_field_tag :tv_show, params[:tv_show] %>
+      <br>
+      <label>Channel</label>
       <%= text_field_tag :channel, params[:tv_show] %>
+      <br>
+      <%= submit_tag "search" %>
     <% end %>
 
+  <%= @tv_shows.count %> records found
   </div>
   <div id='results'>
     <table>
@@ -28,7 +34,7 @@
               <td><%= t.show_name %></td>
               <td><%= t.start_time %></td>
               <td><%= t.end_time %></td>
-              <td><%= t.favorite(current_user) %></td>
+              <td id="<%= "favorite_#{t.id}" %>"><%= button_to(t.favorite(current_user), mark_favorite_tv_show_path(t)) %></td>
             </tr>
           <% end %>
         <% else %>

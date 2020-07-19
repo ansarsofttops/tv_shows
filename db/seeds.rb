@@ -12,7 +12,7 @@ User.create(email: 'ansar@softopstechnologies.com', password: 12345678)
 
 #channels and tv_shows
 
-channels = [{name: 'channel A', description: 'A'}, {name: 'Channel B', description: 'A'} ,{name: 'Channel A', description: 'A'}]
+channels = [{name: 'channel_A', description: 'A'}, {name: 'Channel B', description: 'A'} ,{name: 'Channel A', description: 'A'}]
 
 channels.each do |c|
   channnel = Channel.create(c)
